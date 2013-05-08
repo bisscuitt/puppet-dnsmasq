@@ -27,6 +27,10 @@ class dnsmasq (
     $confd_path = $dnsmasq::params::dnsmasq_confd
   }
 
+  file { $confd_path:
+    ensure  => 'directory',
+  }
+
   package { $dnsmasq_package:
     ensure   => installed,
     provider => $::provider,
