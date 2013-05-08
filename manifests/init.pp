@@ -11,6 +11,7 @@ class dnsmasq (
   $domain_needed = true,
   $bogus_priv = true,
   $no_negcache = false,
+  $confd_path = false,
 ) {
   include dnsmasq::params
   include concat::setup
@@ -20,7 +21,11 @@ class dnsmasq (
   $dnsmasq_conffile     = $dnsmasq::params::dnsmasq_conffile
   $dnsmasq_logdir      = $dnsmasq::params::dnsmasq_logdir
   $dnsmasq_service     = $dnsmasq::params::dnsmasq_service
-
+  
+  # Set the default conf.d path
+  if $confd_path == false {
+    $confd_path = $dnsmasq::params::dnsmasq_confd
+  }
 
   package { $dnsmasq_package:
     ensure   => installed,
